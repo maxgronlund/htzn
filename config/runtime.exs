@@ -66,15 +66,22 @@ if config_env() == :prod do
   #   secret_key_base: secret_key_base,
   #   check_origin: false
   config :htzn, HtznWeb.Endpoint,
-    https: [
-      # Listen on all IPv6 interfaces
+    http: [
+      # Bind to all IPv6 interfaces
       ip: {0, 0, 0, 0, 0, 0, 0, 0},
-      port: port,
+      # Listen on port 80 for HTTP
+      port: 80
+    ],
+    https: [
+      # Bind to all IPv6 interfaces
+      ip: {0, 0, 0, 0, 0, 0, 0, 0},
+      # Listen on port 443 for HTTPS
+      port: 443,
       cipher_suite: :strong,
       keyfile: "/etc/letsencrypt/live/grapes-and-beyond.org/privkey.pem",
       certfile: "/etc/letsencrypt/live/grapes-and-beyond.org/fullchain.pem"
     ],
-    # Redirect all HTTP traffic to HTTPS
+    # Redirect HTTP to HTTPS
     force_ssl: [hsts: true],
     check_origin: false,
     secret_key_base: secret_key_base
